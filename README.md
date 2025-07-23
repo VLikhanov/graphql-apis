@@ -1,6 +1,6 @@
 ## GraphQL API Repository
 
-Contains GraphQL SDL schemas, changelogs, and documentation for the Retarus GraphQL API.
+Contains GraphQL SDL schemas, changelogs, and some additional content for the Retarus GraphQL API.
 
 ---
 
@@ -11,17 +11,17 @@ Contains GraphQL SDL schemas, changelogs, and documentation for the Retarus Grap
 #### /latest/ Directory
 
 **Purpose**  
-Contains the _current, active_ GraphQL schema and related content.
+Contains the `current, released` GraphQL schema and related content.
 
 **Redocly Integration**  
-- The `latest/` folder (and its subfolders) is watched by Redocly for documentation generation and syncing.
+- The `schema/` folder is watched by Redocly for documentation generation and syncing.
 
 **Content**  
-- `schema/`: Contains the most up-to-date GraphQL schema in SDL format (`schema.graphql`).
-- `additional content/`: Additional files (e.g., `CHANGELOG.md`), if any, relevant to the latest schema.
+- `schema/`: Contains the most up-to-date GraphQL schema in SDL format (`schema.gql`).
+- Additional files, if any, relevant to the latest schema.
 
 **Format**  
-- Schemas in SDL format (`.graphql`).
+- Schemas in SDL format (`.gql`).
 
 ---
 
@@ -32,12 +32,25 @@ Archives historical versions of the GraphQL schema and related documentation for
 
 **Format & Content**  
 - Each versioned folder (`v1.0/`, `v1.1/`, `v2.0/`, `v2.1/`, etc.) contains:
-  - `schema.graphql`: GraphQL schema for that version.
-  - `CHANGELOG.md`: Changelog entries for that version.
+  - `schema.gql`: GraphQL schema for that version.
 
 **Maintenance**  
 - This directory is **not** watched or synced by Redocly.
 - Used solely for reference or historical auditing.
+
+---
+
+#### CHANGELOG.md (Repository Root)
+
+**Purpose**  
+Single changelog file tracking all GraphQL API changes across versions.
+
+**Location**  
+- Stored in the repository root directory, alongside the README file.
+
+**Content**  
+- Documents changes, deprecations, and additions for all GraphQL API versions.
+- Provides comprehensive change history for developers and maintainers.
 
 ---
 
@@ -46,18 +59,22 @@ Archives historical versions of the GraphQL schema and related documentation for
 This repository organizes GraphQL schemas by historical versions and the latest release.
 
 1. **Latest GraphQL Schema**  
-   - Found in: `latest/schema/schema.graphql`
+   - Found in: `latest/schema/schema.gql`
    - Contains the most current API definition for external consumers and documentation portals.
 
 2. **Historical GraphQL Schemas**  
-   - Found in: `versions/[version-number]/schema.graphql`
-   - Each version is preserved with matching documentation and changelogs to assist in migration or troubleshooting.
+   - Found in: `versions/[version-number]/schema.gql`
+   - Each version is preserved with matching documentation to assist in migration or troubleshooting.
+
+3. **Unified Changelog**  
+   - Found in: `CHANGELOG.md` (repository root)
+   - Single source of truth for all API changes across versions.
 
 ---
 
 #### Redocly Integration
 
-- Only the contents in the `/latest/` directory (and its subfolders) are actively monitored and synced by Redocly for generating developer-facing documentation.
+- Only the contents in the `/latest/schema` directory are actively monitored and synced by Redocly for generating developer-facing documentation.
 - The `/versions/` directory is not watched by Redocly. Historical files are available for download and audit but _not_ for live documentation generation.
 
 ---
@@ -70,13 +87,14 @@ This repository organizes GraphQL schemas by historical versions and the latest 
 - When releasing a new version:
   - Move the previous latest schema and documents into a new `/versions/[version]/` folder.
   - Update `latest/schema/` with the new schema file.
-- Additional release notes or changelogs should be added to the appropriate `CHANGELOG.md` in each versioned directory.
+  - Update the `CHANGELOG.md` with version changes.
+- Add additional content, if any, to the versioned directory.
 
 ---
 
 **Redocly Documentation Builds**
 
-- _Only_ changes to the `latest/` directory will trigger content updates in Redocly (such as [your developer portal link] or similar documentation hubs).
+- _Only_ changes to the `latest/schema` directory trigger content updates in Redocly. The updated content is automatically published to the `GraphQL API Reference` section under https://developers.retarus.com/.
 
 ---
 
@@ -84,10 +102,7 @@ This repository organizes GraphQL schemas by historical versions and the latest 
 
 | Directory                     | Purpose                                              | Redocly Watched | Contents                                 |
 |-------------------------------|-----------------------------------------------------|:---------------:|------------------------------------------|
-| `/latest/schema/`             | Current schema (SDL format) for documentation       |      ✅         | `schema.graphql`                         |
-| `/latest/additional content/` | Additional docs (e.g., changelogs) for latest       |      ✅         | `CHANGELOG.md`, etc.                     |
-| `/versions/`                  | Historical schemas, changelogs, documentation       |      ❌         | `{vX.Y}/schema.graphql`, `.json`, docs   |
+| `/schema/`                    | Current schema (SDL format) for documentation       |      ✅         | `schema.graphql`                         |
+| `/versions/`                  | Historical schemas and documentation                 |      ❌         | `{vX.Y}/schema.graphql`, docs            |
+| `/CHANGELOG.md`               | Unified changelog for all API versions              |      ⚠️         | All version changes and updates          |
 
----
-
-For contributions, need for historical audit, or questions about the schema, please see the individual documentation files found in each version’s directory.

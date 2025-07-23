@@ -1,0 +1,1 @@
+## Remove this file after the actual schema has been placed in this directory.
